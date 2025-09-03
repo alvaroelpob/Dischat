@@ -1,6 +1,7 @@
 package dev.alvaropoblador.dischat.services;
 
 import dev.alvaropoblador.dischat.bot.DiscordBot;
+import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
@@ -16,7 +17,7 @@ public class ChatListener implements Listener {
 
     @EventHandler
     private void onPlayerChat(AsyncPlayerChatEvent event) {
-        String playerName = event.getPlayer().getDisplayName();
+        String playerName = ChatColor.stripColor(event.getPlayer().getDisplayName());
         String message = event.getMessage();
 
         discordBot.sendMessage("**" + playerName + "** > " + message);

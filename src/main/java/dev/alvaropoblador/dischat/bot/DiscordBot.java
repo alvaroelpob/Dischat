@@ -7,6 +7,7 @@ import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 
 import dev.alvaropoblador.dischat.bot.listeners.MessageListener;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -49,8 +50,8 @@ public class DiscordBot {
         }
 
         if(player != null) {
-            description = description.replace("%player_name%", player.getName());
-            description = description.replace("%player_display_name%", player.getDisplayName());
+            description = description.replace("%player_name%", ChatColor.stripColor(player.getName()));
+            description = description.replace("%player_display_name%", ChatColor.stripColor(player.getDisplayName()));
         }
 
         String retrievedColor = plugin.getConfig().getString(colorPath);
