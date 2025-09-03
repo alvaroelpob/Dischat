@@ -3,6 +3,7 @@ package dev.alvaropoblador.dischat.bot;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 
@@ -10,6 +11,8 @@ import dev.alvaropoblador.dischat.bot.listeners.MessageListener;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.List;
 
 public class DiscordBot {
 
@@ -35,12 +38,14 @@ public class DiscordBot {
         if(jda != null) {
             TextChannel channel = jda.getTextChannelById(chatChannelID);
             if (channel != null) {
-                channel.sendMessage(content).queue();
+                channel.sendMessage(content)
+                        .setAllowedMentions(List.of(Message.MentionType.USER))
+                        .queue();
             }
         }
     }
 
-    public void sendEmbedMessage(String descriptionPath, String colorPath, Player player) {
+    public void sendEmbedMessage(String descriptionPath, String colorPath, Player player, String deathMessage, String advancementTitle) {
         if(jda == null) return;
 
         String description = plugin.getConfig().getString(descriptionPath);
@@ -52,6 +57,17 @@ public class DiscordBot {
         if(player != null) {
             description = description.replace("%player_name%", ChatColor.stripColor(player.getName()));
             description = description.replace("%player_display_name%", ChatColor.stripColor(player.getDisplayName()));
+        }
+
+        if(advancementTitle != null) {
+            description = description.replace("%advancement_title%", advancementTitle);
+        }
+
+        if (deathMessage != null && player != null) {
+            String playerName = player.getName();
+            String killerPart = deathMessage.replaceFirst("\\b" + playerName + "\\b", "").trim();
+
+            description = description.replace("%death_message%", killerPart);
         }
 
         String retrievedColor = plugin.getConfig().getString(colorPath);
@@ -83,18 +99,26 @@ public class DiscordBot {
     }
 
     public void sendStartServerMessage() {
-        sendEmbedMessage("messages.server-start", "colors.server-start", null);
+        sendEmbedMessage("messages.server-start", "colors.server-start", null, null, null);
     }
 
     public void sendStopServerMessage() {
-        sendEmbedMessage("messages.server-stop", "colors.server-stop", null);
+        sendEmbedMessage("messages.server-stop", "colors.server-stop", null, null, null);
     }
 
     public void sendPlayerJoinMessage(Player player) {
-        sendEmbedMessage("messages.player-join", "colors.player-join", player);
+        sendEmbedMessage("messages.player-join", "colors.player-join", player, null, null);
     }
 
     public void sendPlayerQuitMessage(Player player) {
-        sendEmbedMessage("messages.player-quit", "colors.player-quit", player);
+        sendEmbedMessage("messages.player-quit", "colors.player-quit", player, null, null);
+    }
+
+    public void sendDeathMessage(Player player, String deathMessage) {
+        sendEmbedMessage("messages.player-death", "colors.player-death", player, deathMessage, null);
+    }
+
+    public void sendAdvancementDone(Player player, String advancementTitle) {
+        sendEmbedMessage("messages.advancement-done", "colors.advancement-done", player, null, advancementTitle);
     }
 }

@@ -2,19 +2,32 @@
 token: "YOUR_BOT_TOKEN"
 chatChannelID: "YOUR_CHAT_CHANNEL_ID"
 
-# Messages, available placeholders:
-# %player_name%
-# %player_display_name%
 messages:
-  server-start: "**⚡ Server started**"
-  server-stop: "**🛑 Server stopped**"
-  player-join: "**🟢 %player_display_name%**"
-  player-quit: "**🔴 %player_display_name%**"
+  server-start: "**⚡ Server started**" # When the server starts.
+  server-stop: "**🛑 Server stopped**" # When the server stops.
+
+  # The messages below support the use of dynamic placeholders.
+  # Below are the available placeholders that you can use within the message strings:
+
+  # %player_name% - The in-game username of the player.
+  # %player_display_name% - The display name of the player.
+
+  player-join: "**🟢 %player_display_name%**"  # When a player joins.
+
+  player-quit: "**🔴 %player_display_name%**"  # When a player leaves the server.
+
+  # %death_message% - The message that describes how the player died (e.g., "fell from a high place").
+  player-death: "**💀 %player_display_name%** %death_message%"  # When a player dies.
+
+  # %advancement_title% - The title of the advancement that a player has completed (e.g., "Cover Me with Diamonds").
+  advancement-done: "**🏅 %player_display_name%** has made the advancement **%advancement_title%**"  # When a player completes an advancement.
 
 # RGB color in embeds
 # Format: #RRGGBB (E.g. #FFFFFF, #FF0000, #00FF00)
 colors:
-  server-start: "#00FF00"
-  server-stop: "#FF0000"
-  player-join: "#00FF00"
-  player-quit: "#FF0000"
+  server-start: "#00FF00"     # When the server starts.
+  server-stop: "#FF0000"      # When the server stops.
+  player-join: "#00FF00"      # When a player joins.
+  player-quit: "#FF0000"      # When a player leaves the server.
+  player-death: "#000000"     # When a player dies.
+  advancement-done: "#0000FF" # When a player completes an advancement.

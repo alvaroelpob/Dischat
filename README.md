@@ -31,31 +31,7 @@ A Minecraft (Spigot/Paper) plugin that bridges chat between your Minecraft serve
 - `/dischat reload` - Reloads Dischat's config.yml
 
 ## ⚙️ Configuration
-
-Example `config.yml`:
-
-```yaml
-token: "YOUR_BOT_TOKEN"
-chatChannelID: "YOUR_CHAT_CHANNEL_ID"
-
-messages:
-  server-start: "**⚡ Server started**"
-  server-stop: "**🛑 Server stopped**"
-  player-join: "**🟢 %player_display_name%**"
-  player-quit: "**🔴 %player_display_name%**"
-
-colors:
-  server-start: "#00FF00"
-  server-stop: "#FF0000"
-  player-join: "#00FF00"
-  player-quit: "#FF0000"
-```
-
-### Placeholders
-- `%player_name%` → The player’s username
-- `%player_display_name%` → The player’s display name
-
-**Important:** Replace `YOUR_BOT_TOKEN` and `YOUR_CHAT_CHANNEL_ID` with valid values (requires a server restart).
+- The initial configuration is [here](https://github.com/alvaroelpob/Dischat/blob/master/src/main/resources/config.yml)
 
 ## 🛠️ Requirements
 
