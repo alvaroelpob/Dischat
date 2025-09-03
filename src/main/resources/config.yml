@@ -1,0 +1,20 @@
+# Any change in "token" or "chatChannelID" requires a server restart
+token: "YOUR_BOT_TOKEN"
+chatChannelID: "YOUR_CHAT_CHANNEL_ID"
+
+# Messages, available placeholders:
+# %player_name%
+# %player_display_name%
+messages:
+  server-start: "**⚡ Server started**"
+  server-stop: "**🛑 Server stopped**"
+  player-join: "**🟢 %player_display_name%**"
+  player-quit: "**🔴 %player_display_name%**"
+
+# RGB color in embeds
+# Format: #RRGGBB (E.g. #FFFFFF, #FF0000, #00FF00)
+colors:
+  server-start: "#00FF00"
+  server-stop: "#FF0000"
+  player-join: "#00FF00"
+  player-quit: "#FF0000"

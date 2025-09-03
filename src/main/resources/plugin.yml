@@ -1,0 +1,14 @@
+name: Dischat
+version: '${project.version}'
+main: dev.alvaropoblador.dischat.Dischat
+api-version: '1.21'
+commands:
+  dischat:
+    description: Commands related to Dischat
+    usage: /dischat reload
+    aliases: [dc]
+
+permissions:
+  dischat.admin:
+    description: Allows access to all Dischat commands.
+    default: op
