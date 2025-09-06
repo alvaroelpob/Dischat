@@ -1,5 +1,6 @@
 package dev.alvaropoblador.dischat.bot.listeners;
 
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -22,14 +23,23 @@ public class MessageListener extends ListenerAdapter {
         if (event.getAuthor().isBot()) return;
 
         if (event.getChannel().getId().equals(chatChannelID)) {
-            String author = event.getAuthor().getEffectiveName();
+            User author = event.getAuthor();
             String content = event.getMessage().getContentDisplay();
 
-            Bukkit.getScheduler().runTask(plugin, () -> {
+            String template = plugin.getConfig().getString("discord-to-minecraft.user-message");
+            if(template == null || template.isBlank()) {
+                plugin.getLogger().warning("Missing or empty message in config.yml at: " + "discord-to-minecraft.user-message");
+                return;
+            }
 
-                Bukkit.broadcastMessage(ChatColor.BLUE + "[Discord] "
-                        + ChatColor.RESET + author + ": "
-                        + ChatColor.GRAY + content);
+            String message = template
+                    .replace("%author_id%", author.getId())
+                    .replace("%author_username%", author.getName())
+                    .replace("%author_displayName%", author.getEffectiveName())
+                    .replace("%message%", content);
+
+            Bukkit.getScheduler().runTask(plugin, () -> {
+                Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', message));
             });
         }
     }

@@ -63,9 +63,9 @@ public class DiscordBot {
         if(jda != null) {
             TextChannel channel = jda.getTextChannelById(chatChannelID);
             if (channel != null) {
-                String message = plugin.getConfig().getString("messages.player-message");
+                String message = plugin.getConfig().getString("minecraft-to-discord.player-message");
                 if(message == null || message.isBlank()) {
-                    plugin.getLogger().warning("Missing or empty message in config.yml at: " + "messages.player-message");
+                    plugin.getLogger().warning("Missing or empty message in config.yml at: " + "minecraft-to-discord.player-message");
                     return;
                 }
 
@@ -134,26 +134,26 @@ public class DiscordBot {
     }
 
     public void sendStartServerMessage() {
-        sendEmbedMessage("messages.server-start", "colors.server-start", null, null, null);
+        sendEmbedMessage("minecraft-to-discord.server-start", "minecraft-to-discord.server-start-embed-color", null, null, null);
     }
 
     public void sendStopServerMessage() {
-        sendEmbedMessage("messages.server-stop", "colors.server-stop", null, null, null);
+        sendEmbedMessage("minecraft-to-discord.server-stop", "minecraft-to-discord.server-stop-embed-color", null, null, null);
     }
 
     public void sendPlayerJoinMessage(Player player) {
-        sendEmbedMessage("messages.player-join", "colors.player-join", player, null, null);
+        sendEmbedMessage("minecraft-to-discord.player-join", "minecraft-to-discord.player-join-embed-color", player, null, null);
     }
 
     public void sendPlayerQuitMessage(Player player) {
-        sendEmbedMessage("messages.player-quit", "colors.player-quit", player, null, null);
+        sendEmbedMessage("minecraft-to-discord.player-quit", "minecraft-to-discord.player-quit-embed-color", player, null, null);
     }
 
     public void sendDeathMessage(Player player, String deathMessage) {
-        sendEmbedMessage("messages.player-death", "colors.player-death", player, deathMessage, null);
+        sendEmbedMessage("minecraft-to-discord.player-death", "minecraft-to-discord.player-death-embed-color", player, deathMessage, null);
     }
 
     public void sendAdvancementDone(Player player, String advancementTitle) {
-        sendEmbedMessage("messages.advancement-done", "colors.advancement-done", player, null, advancementTitle);
+        sendEmbedMessage("minecraft-to-discord.advancement-done", "minecraft-to-discord.advancement-done-embed-color", player, null, advancementTitle);
     }
 }

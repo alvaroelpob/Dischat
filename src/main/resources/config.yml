@@ -1,36 +1,53 @@
-# Any change to "token" or "chatChannelID" requires a server restart
+
+# ==================================================
+#                 Bot settings
+#  !!Any change here requires a server restart!!
+# ==================================================
 token: "YOUR_BOT_TOKEN"
 chatChannelID: "YOUR_CHAT_CHANNEL_ID"
 
-messages:
-  server-start: "**⚡ Server started**" # Server startup
-  server-stop: "**🛑 Server stopped**" # Server shutdown
+
+# ==================================================
+#           Minecraft → Discord
+#     (What Discord sees from Minecraft)
+# ==================================================
+minecraft-to-discord:
+  # Server startup
+  server-start: "**⚡ Server started**"
+  server-start-embed-color: "#00FF00"
+
+  # Server shutdown
+  server-stop: "**🛑 Server stopped**"
+  server-stop-embed-color: "#FF0000"
 
   # Player chat message
   # Placeholders:
-  # %player_name% - In-game username
-  # %player_display_name% - Display name
-  # %message% - Message sent by player
+  # %player_name% -> In-game username
+  # %player_display_name% -> Display name
+  # %message% -> Message sent by player
   player-message: "**%player_display_name%** > %message%"
 
   # Player joins the server
   # Placeholders:
-  # %player_name% - In-game username
-  # %player_display_name% - Display name
+  # %player_name% -> In-game username
+  # %player_display_name% -> Display name
   player-join: "**🟢 %player_display_name%**"
+  player-join-embed-color: "#00FF00"
 
   # Player leaves the server
   # Placeholders:
-  # %player_name% - In-game username
-  # %player_display_name% - Display name
+  # %player_name% -> In-game username
+  # %player_display_name% -> Display name
   player-quit: "**🔴 %player_display_name%**"
+  player-quit-embed-color: "#FF0000"
 
   # Player dies
   # Placeholders:
-  # %player_name% - In-game username
-  # %player_display_name% - Display name
-  # %death_message% - How the player died
+  # %player_name% -> In-game username
+  # %player_display_name% -> Display name
+  # %death_message% -> How the player died
   player-death: "**💀 %player_display_name%** %death_message%"
+  player-death-embed-color: "#000000"
 
   # Player completes an advancement
   # Placeholders:
@@ -38,12 +55,19 @@ messages:
   # %player_display_name% - Display name
   # %advancement_title% - Advancement completed
   advancement-done: "**🏅 %player_display_name%** has made the advancement **%advancement_title%**"
+  advancement-done-embed-color: "#0000FF"
 
-# Embed colors (Hex: #RRGGBB)
-colors:
-  server-start: "#00FF00"     # Server startup
-  server-stop: "#FF0000"      # Server shutdown
-  player-join: "#00FF00"      # Player joined
-  player-quit: "#FF0000"      # Player left
-  player-death: "#000000"     # Player death
-  advancement-done: "#0000FF" # Advancement completed
+
+
+# ==================================================
+#           Discord → Minecraft
+#     (What Minecraft sees from Discord)
+# ==================================================
+discord-to-minecraft:
+  # Discord user chats
+  # Placeholders:
+  # %author_id% -> Discord user's unique ID
+  # %author_username% -> Discord user's username
+  # %author_displayName% -> Discord user's display name
+  # %message% -> Message sent by the user
+  user-message: "&9[Discord] &r%author_displayName%: &7%message%"
