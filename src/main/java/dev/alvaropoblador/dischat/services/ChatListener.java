@@ -21,10 +21,7 @@ public class ChatListener implements Listener {
 
     @EventHandler
     private void onPlayerChat(AsyncPlayerChatEvent event) {
-        String playerName = ChatColor.stripColor(event.getPlayer().getDisplayName());
-        String message = event.getMessage();
-
-        discordBot.sendMessage("**" + playerName + "** > " + message);
+        discordBot.sendPlayerMessage(event.getPlayer(), event.getMessage());
     }
 
     @EventHandler

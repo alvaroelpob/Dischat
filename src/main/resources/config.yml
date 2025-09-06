@@ -1,33 +1,49 @@
-# Any change in "token" or "chatChannelID" requires a server restart
+# Any change to "token" or "chatChannelID" requires a server restart
 token: "YOUR_BOT_TOKEN"
 chatChannelID: "YOUR_CHAT_CHANNEL_ID"
 
 messages:
-  server-start: "**⚡ Server started**" # When the server starts.
-  server-stop: "**🛑 Server stopped**" # When the server stops.
+  server-start: "**⚡ Server started**" # Server startup
+  server-stop: "**🛑 Server stopped**" # Server shutdown
 
-  # The messages below support the use of dynamic placeholders.
-  # Below are the available placeholders that you can use within the message strings:
+  # Player chat message
+  # Placeholders:
+  # %player_name% - In-game username
+  # %player_display_name% - Display name
+  # %message% - Message sent by player
+  player-message: "**%player_display_name%** > %message%"
 
-  # %player_name% - The in-game username of the player.
-  # %player_display_name% - The display name of the player.
+  # Player joins the server
+  # Placeholders:
+  # %player_name% - In-game username
+  # %player_display_name% - Display name
+  player-join: "**🟢 %player_display_name%**"
 
-  player-join: "**🟢 %player_display_name%**"  # When a player joins.
+  # Player leaves the server
+  # Placeholders:
+  # %player_name% - In-game username
+  # %player_display_name% - Display name
+  player-quit: "**🔴 %player_display_name%**"
 
-  player-quit: "**🔴 %player_display_name%**"  # When a player leaves the server.
+  # Player dies
+  # Placeholders:
+  # %player_name% - In-game username
+  # %player_display_name% - Display name
+  # %death_message% - How the player died
+  player-death: "**💀 %player_display_name%** %death_message%"
 
-  # %death_message% - The message that describes how the player died (e.g., "fell from a high place").
-  player-death: "**💀 %player_display_name%** %death_message%"  # When a player dies.
+  # Player completes an advancement
+  # Placeholders:
+  # %player_name% - In-game username
+  # %player_display_name% - Display name
+  # %advancement_title% - Advancement completed
+  advancement-done: "**🏅 %player_display_name%** has made the advancement **%advancement_title%**"
 
-  # %advancement_title% - The title of the advancement that a player has completed (e.g., "Cover Me with Diamonds").
-  advancement-done: "**🏅 %player_display_name%** has made the advancement **%advancement_title%**"  # When a player completes an advancement.
-
-# RGB color in embeds
-# Format: #RRGGBB (E.g. #FFFFFF, #FF0000, #00FF00)
+# Embed colors (Hex: #RRGGBB)
 colors:
-  server-start: "#00FF00"     # When the server starts.
-  server-stop: "#FF0000"      # When the server stops.
-  player-join: "#00FF00"      # When a player joins.
-  player-quit: "#FF0000"      # When a player leaves the server.
-  player-death: "#000000"     # When a player dies.
-  advancement-done: "#0000FF" # When a player completes an advancement.
+  server-start: "#00FF00"     # Server startup
+  server-stop: "#FF0000"      # Server shutdown
+  player-join: "#00FF00"      # Player joined
+  player-quit: "#FF0000"      # Player left
+  player-death: "#000000"     # Player death
+  advancement-done: "#0000FF" # Advancement completed

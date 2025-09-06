@@ -47,11 +47,33 @@ public class DiscordBot {
         }
     }
 
-    public void sendMessage(String content) {
+    public void updateChannelTopic() {
+        if(jda != null) {
+            TextChannel channel = jda.getTextChannelById(chatChannelID);
+            if(channel != null) {
+                int onlinePlayers = plugin.getServer().getOnlinePlayers().size();
+                int maxPlayers = plugin.getServer().getMaxPlayers();
+
+                channel.getManager().setTopic(onlinePlayers + "/" + maxPlayers + " online players").queue();
+            }
+        }
+    }
+
+    public void sendPlayerMessage(Player player, String content) {
         if(jda != null) {
             TextChannel channel = jda.getTextChannelById(chatChannelID);
             if (channel != null) {
-                channel.sendMessage(content)
+                String message = plugin.getConfig().getString("messages.player-message");
+                if(message == null || message.isBlank()) {
+                    plugin.getLogger().warning("Missing or empty message in config.yml at: " + "messages.player-message");
+                    return;
+                }
+
+                message = message.replace("%player_name%", ChatColor.stripColor(player.getName()));
+                message = message.replace("%player_display_name%", ChatColor.stripColor(player.getDisplayName()));
+                message = message.replace("%message%", ChatColor.stripColor(content));
+
+                channel.sendMessage(message)
                         .setAllowedMentions(List.of(Message.MentionType.USER))
                         .queue();
             }

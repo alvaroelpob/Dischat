@@ -4,6 +4,7 @@ import dev.alvaropoblador.dischat.services.ChatListener;
 import dev.alvaropoblador.dischat.bot.DiscordBot;
 
 import dev.alvaropoblador.dischat.services.Commands;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
@@ -44,7 +45,19 @@ public final class Dischat extends JavaPlugin {
             getServer().getPluginManager().registerEvents(new ChatListener(discordBot), this);
 
             discordBot.sendStartServerMessage();
-            getLogger().info("Dischat has been enabled");
+            getLogger().info(
+                    "                                      \n" +
+                    "    ____  _           __          __ \n" +
+                    "   / __ \\(_)_________/ /_  ____ _/ /_\n" +
+                    "  / / / / / ___/ ___/ __ \\/ __ `/ __/\n" +
+                    " / /_/ / (__  ) /__/ / / / /_/ / /_  \n" +
+                    "/_____/_/____/\\___/_/ /_/\\__,_/\\__/  \n" +
+                    "                                     ");
+
+            Bukkit.getScheduler().runTaskTimer(this, () -> {
+                discordBot.updateChannelTopic();
+            }, 0L, 20 * 60L); // 20 ticks * 60 seconds
+
         } catch (InterruptedException e) {
             getLogger().severe("An error occurred while connecting to the Discord API");
         }
