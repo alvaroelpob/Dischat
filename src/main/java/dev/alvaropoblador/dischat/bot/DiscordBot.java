@@ -6,8 +6,11 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import net.dv8tion.jda.api.interactions.commands.build.Commands;
 
 import dev.alvaropoblador.dischat.bot.listeners.MessageListener;
+import dev.alvaropoblador.dischat.bot.listeners.InteractionListener;
+
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -27,11 +30,21 @@ public class DiscordBot {
 
         this.jda = JDABuilder.createDefault(token)
                 .enableIntents(GatewayIntent.MESSAGE_CONTENT)
-                .addEventListeners(new MessageListener(plugin, chatChannelID))
+                .addEventListeners(
+                        new MessageListener(plugin, chatChannelID),
+                        new InteractionListener(plugin)
+                )
                 .build();
 
         // optionally block until JDA is ready
         jda.awaitReady();
+
+        TextChannel channel = jda.getTextChannelById(chatChannelID);
+        if (channel != null) {
+            channel.getGuild().updateCommands().addCommands(
+                    Commands.slash("playerlist", "Shows the list of online players")
+            ).queue();
+        }
     }
 
     public void sendMessage(String content) {
