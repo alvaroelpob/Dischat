@@ -4,6 +4,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -25,7 +26,10 @@ public class MessageListener extends ListenerAdapter {
             String content = event.getMessage().getContentDisplay();
 
             Bukkit.getScheduler().runTask(plugin, () -> {
-                Bukkit.broadcastMessage("§9[Discord] §r" + author + ": " + content);
+
+                Bukkit.broadcastMessage(ChatColor.BLUE + "[Discord] "
+                        + ChatColor.RESET + author + ": "
+                        + ChatColor.GRAY + content);
             });
         }
     }
