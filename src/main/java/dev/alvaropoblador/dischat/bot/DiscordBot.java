@@ -10,6 +10,7 @@ import net.dv8tion.jda.api.interactions.commands.build.Commands;
 
 import dev.alvaropoblador.dischat.bot.listeners.MessageListener;
 import dev.alvaropoblador.dischat.bot.listeners.InteractionListener;
+import dev.alvaropoblador.dischat.enums.DiscordCommandMode;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -22,7 +23,7 @@ public class DiscordBot {
     private final JavaPlugin plugin;
     private final String chatChannelID;
 
-    public DiscordBot(String token, String chatChannelID, JavaPlugin plugin) throws InterruptedException {
+    public DiscordBot(JavaPlugin plugin, String token, String chatChannelID, DiscordCommandMode discordCommandMode) throws InterruptedException {
 
         this.plugin = plugin;
         this.chatChannelID = chatChannelID;
@@ -30,19 +31,24 @@ public class DiscordBot {
         this.jda = JDABuilder.createDefault(token)
                 .enableIntents(GatewayIntent.MESSAGE_CONTENT)
                 .addEventListeners(
-                        new MessageListener(plugin, chatChannelID),
-                        new InteractionListener(plugin)
+                        new MessageListener(plugin, chatChannelID, discordCommandMode),
+                        new InteractionListener(plugin, discordCommandMode)
                 )
                 .build();
 
         // optionally block until JDA is ready
         jda.awaitReady();
 
-        TextChannel channel = jda.getTextChannelById(chatChannelID);
-        if (channel != null) {
-            channel.getGuild().updateCommands().addCommands(
-                    Commands.slash("playerlist", "Shows the list of online players")
-            ).queue();
+        if (
+                discordCommandMode == DiscordCommandMode.SLASH ||
+                discordCommandMode == DiscordCommandMode.BOTH
+        ) {
+            TextChannel channel = jda.getTextChannelById(chatChannelID);
+            if (channel != null) {
+                channel.getGuild().updateCommands().addCommands(
+                        Commands.slash("playerlist", "Shows the list of online players")
+                ).queue();
+            }
         }
     }
 

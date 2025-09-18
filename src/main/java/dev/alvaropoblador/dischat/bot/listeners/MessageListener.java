@@ -1,5 +1,7 @@
 package dev.alvaropoblador.dischat.bot.listeners;
 
+import dev.alvaropoblador.dischat.bot.utils.PlayerListUtil;
+import dev.alvaropoblador.dischat.enums.DiscordCommandMode;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -12,10 +14,12 @@ import org.jetbrains.annotations.NotNull;
 public class MessageListener extends ListenerAdapter {
     private final JavaPlugin plugin;
     private final String chatChannelID;
+    private final DiscordCommandMode discordCommandMode;
 
-    public MessageListener(JavaPlugin plugin, String chatChannelID) {
+    public MessageListener(JavaPlugin plugin, String chatChannelID, DiscordCommandMode discordCommandMode) {
         this.plugin = plugin;
         this.chatChannelID = chatChannelID;
+        this.discordCommandMode = discordCommandMode;
     }
 
     @Override
@@ -23,6 +27,20 @@ public class MessageListener extends ListenerAdapter {
         if (event.getAuthor().isBot()) return;
 
         if (event.getChannel().getId().equals(chatChannelID)) {
+
+            if(event.getMessage().getContentDisplay().equals("playerlist")) {
+                if (
+                        discordCommandMode == DiscordCommandMode.MESSAGE ||
+                        discordCommandMode == DiscordCommandMode.BOTH
+                ) {
+                    PlayerListUtil util = new PlayerListUtil(plugin);
+                    String replyMessage = util.buildPlayerListMessage();
+
+                    event.getMessage().reply(replyMessage).queue();
+                    return;
+                }
+            }
+
             User author = event.getAuthor();
             String content = event.getMessage().getContentDisplay();
 

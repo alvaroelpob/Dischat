@@ -6,6 +6,23 @@
 token: "YOUR_BOT_TOKEN"
 chat-channel-id: "YOUR_CHAT_CHANNEL_ID"
 
+# Discord commands mode options
+#
+#  - MESSAGE → Players can use commands by typing them as normal
+#              Discord messages in the "chat-channel-id".
+#              Example: "playerlist"
+#
+#  - SLASH   → Commands are registered as Discord slash commands.
+#              Example: "/playerlist"
+#
+#  - BOTH    → Allows using both message commands and slash commands.
+#
+#              IMPORTANT!!!!!!
+#              When using SLASH mode (or BOTH), this plugin will
+#              push its commands to Discord via the REST API.
+#              This will REMOVE any existing slash commands on
+#              your bot, leaving only the ones from this plugin.
+discord-command-mode: BOTH
 
 # ==================================================
 #           Minecraft → Discord

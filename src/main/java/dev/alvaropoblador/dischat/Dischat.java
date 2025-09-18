@@ -1,5 +1,6 @@
 package dev.alvaropoblador.dischat;
 
+import dev.alvaropoblador.dischat.enums.DiscordCommandMode;
 import dev.alvaropoblador.dischat.services.ChatListener;
 import dev.alvaropoblador.dischat.bot.DiscordBot;
 
@@ -7,6 +8,7 @@ import dev.alvaropoblador.dischat.services.Commands;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Locale;
 import java.util.Objects;
 
 public final class Dischat extends JavaPlugin {
@@ -32,8 +34,25 @@ public final class Dischat extends JavaPlugin {
             return;
         }
 
+        String discordCommandModeConfig = getConfig().getString("discord-command-mode");
+        DiscordCommandMode discordCommandMode;
+
         try {
-            this.discordBot = new DiscordBot(token, chatChannelID, this);
+            if(discordCommandModeConfig == null || discordCommandModeConfig.isEmpty()) {
+                throw new IllegalArgumentException("Missing discord-command-mode in config.yml");
+            }
+
+            discordCommandMode = DiscordCommandMode.valueOf(discordCommandModeConfig.toUpperCase(Locale.ROOT));
+        } catch (IllegalArgumentException | NullPointerException e) {
+            getLogger().severe("Invalid configuration detected! Please set a valid discord-command-mode in config.yml (MESSAGE, SLASH, BOTH).");
+            getLogger().severe("Disabling plugin...");
+
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
+
+        try {
+            this.discordBot = new DiscordBot(this, token, chatChannelID, discordCommandMode);
 
             /* Commands */
             Objects.requireNonNull(getCommand("dischat")).setExecutor(new Commands(this));
