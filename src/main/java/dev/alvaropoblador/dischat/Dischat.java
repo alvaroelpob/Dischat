@@ -18,8 +18,7 @@ public final class Dischat extends JavaPlugin {
         saveDefaultConfig();
 
         String token = getConfig().getString("token");
-        String chatChannelID = getConfig().getString("chatChannelID");
-
+        String chatChannelID = getConfig().getString("chat-channel-id");
         if (
                 token == null ||
                 token.equalsIgnoreCase("YOUR_BOT_TOKEN") ||

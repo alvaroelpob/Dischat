@@ -4,7 +4,7 @@
 #  !!Any change here requires a server restart!!
 # ==================================================
 token: "YOUR_BOT_TOKEN"
-chatChannelID: "YOUR_CHAT_CHANNEL_ID"
+chat-channel-id: "YOUR_CHAT_CHANNEL_ID"
 
 
 # ==================================================
