@@ -1,7 +1,7 @@
 package dev.alvaropoblador.dischat.services;
 
 import dev.alvaropoblador.dischat.bot.DiscordBot;
-import org.bukkit.ChatColor;
+
 import org.bukkit.advancement.Advancement;
 import org.bukkit.advancement.AdvancementDisplay;
 import org.bukkit.event.EventHandler;

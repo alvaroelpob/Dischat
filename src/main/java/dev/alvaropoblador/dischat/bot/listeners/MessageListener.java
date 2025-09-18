@@ -27,7 +27,7 @@ public class MessageListener extends ListenerAdapter {
             String content = event.getMessage().getContentDisplay();
 
             String template = plugin.getConfig().getString("discord-to-minecraft.user-message");
-            if(template == null || template.isBlank()) {
+            if(template == null || template.isEmpty()) {
                 plugin.getLogger().warning("Missing or empty message in config.yml at: " + "discord-to-minecraft.user-message");
                 return;
             }

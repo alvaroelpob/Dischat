@@ -10,7 +10,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.Objects;
 
 public final class Dischat extends JavaPlugin {
-
     private DiscordBot discordBot;
 
     @Override
@@ -44,7 +43,6 @@ public final class Dischat extends JavaPlugin {
             /* Listeners */
             getServer().getPluginManager().registerEvents(new ChatListener(discordBot), this);
 
-            discordBot.sendStartServerMessage();
             getLogger().info(
                     "                                      \n" +
                     "    ____  _           __          __ \n" +
@@ -53,6 +51,8 @@ public final class Dischat extends JavaPlugin {
                     " / /_/ / (__  ) /__/ / / / /_/ / /_  \n" +
                     "/_____/_/____/\\___/_/ /_/\\__,_/\\__/  \n" +
                     "                                     ");
+
+            discordBot.sendStartServerMessage();
 
             Bukkit.getScheduler().runTaskTimer(this, () -> {
                 discordBot.updateChannelTopic();
@@ -68,6 +68,7 @@ public final class Dischat extends JavaPlugin {
         if(this.discordBot != null) {
             discordBot.sendStopServerMessage();
         }
+
         getLogger().info("Dischat has been disabled");
     }
 }

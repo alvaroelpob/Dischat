@@ -11,7 +11,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class Commands implements CommandExecutor, TabCompleter {
-
     private final Dischat plugin;
 
     public Commands(Dischat plugin) {

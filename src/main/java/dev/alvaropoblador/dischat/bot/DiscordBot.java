@@ -18,7 +18,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.List;
 
 public class DiscordBot {
-
     private final JDA jda;
     private final JavaPlugin plugin;
     private final String chatChannelID;
@@ -64,7 +63,7 @@ public class DiscordBot {
             TextChannel channel = jda.getTextChannelById(chatChannelID);
             if (channel != null) {
                 String message = plugin.getConfig().getString("minecraft-to-discord.player-message");
-                if(message == null || message.isBlank()) {
+                if(message == null || message.isEmpty()) {
                     plugin.getLogger().warning("Missing or empty message in config.yml at: " + "minecraft-to-discord.player-message");
                     return;
                 }
@@ -84,7 +83,7 @@ public class DiscordBot {
         if(jda == null) return;
 
         String description = plugin.getConfig().getString(descriptionPath);
-        if(description == null || description.isBlank()) {
+        if(description == null || description.isEmpty()) {
             plugin.getLogger().warning("Missing or empty message in config.yml at: " + descriptionPath);
             return;
         }
@@ -106,7 +105,7 @@ public class DiscordBot {
         }
 
         String retrievedColor = plugin.getConfig().getString(colorPath);
-        if(retrievedColor == null || retrievedColor.isBlank()) {
+        if(retrievedColor == null || retrievedColor.isEmpty()) {
             plugin.getLogger().warning("Missing or empty color in config.yml at: " + descriptionPath);
             return;
         }
