@@ -46,6 +46,10 @@ public class DiscordBot {
         }
     }
 
+    public void shutdown() {
+        jda.shutdown();
+    }
+
     public void updateChannelTopic() {
         if(jda != null) {
             TextChannel channel = jda.getTextChannelById(chatChannelID);

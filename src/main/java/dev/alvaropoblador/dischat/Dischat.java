@@ -67,6 +67,7 @@ public final class Dischat extends JavaPlugin {
     public void onDisable() {
         if(this.discordBot != null) {
             discordBot.sendStopServerMessage();
+            discordBot.shutdown();
         }
 
         getLogger().info("Dischat has been disabled");
