@@ -3,8 +3,9 @@ package dev.alvaropoblador.dischat;
 import dev.alvaropoblador.dischat.enums.DiscordCommandMode;
 import dev.alvaropoblador.dischat.services.ChatListener;
 import dev.alvaropoblador.dischat.bot.DiscordBot;
-
 import dev.alvaropoblador.dischat.services.Commands;
+import dev.alvaropoblador.dischat.services.UpdateChecker;
+
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -16,8 +17,22 @@ public final class Dischat extends JavaPlugin {
 
     @Override
     public void onEnable() {
-
         saveDefaultConfig();
+
+        boolean checkForUpdates = getConfig().getBoolean("check-for-updates", true);
+        if(checkForUpdates) {
+            String latestVersion = new UpdateChecker(this).getVersion();
+            String currentVersion = getDescription().getVersion();
+            if(!latestVersion.equals(currentVersion)) {
+                this.getLogger().info("""
+                    A new update is available!
+                    Current version: %s Latest version: %s
+                    Download it now: https://github.com/alvaroelpob/Dischat/releases/tag/latest
+                    """.formatted(currentVersion, latestVersion));
+            } else {
+                this.getLogger().info("You are running the latest version: " + currentVersion);
+            }
+        }
 
         String token = getConfig().getString("token");
         String chatChannelID = getConfig().getString("chat-channel-id");
